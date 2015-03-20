@@ -1,5 +1,5 @@
 """
-Django settings for mysite project.
+Django settings for Weblog project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '137gc^d02w@36@o406#pj)w%o2a-^gi!=(jzuw5r9$bfy!(cp@'
+SECRET_KEY = 'fukqh&&d89&u_fi6!=m-vpzxbfkdl-*i0$h+86)#-*=u0v330v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,9 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp',
-    'common',
-    'rare',
+    'blog',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -51,9 +49,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'mysite.urls'
+ROOT_URLCONF = 'Weblog.urls'
 
-WSGI_APPLICATION = 'mysite.wsgi.application'
+WSGI_APPLICATION = 'Weblog.wsgi.application'
 
 
 # Database
