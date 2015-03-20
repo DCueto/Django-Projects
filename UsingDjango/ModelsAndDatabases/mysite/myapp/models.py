@@ -139,4 +139,96 @@ class Blog(models.Model):
 		else:
 			super(Blog, self).save(*args, **kwargs) #Call the "real" save() method.
 
+
+# Abstract base classes
+
+class CommonInfo(models.Model):
+	name = models.CharField(max_length=100)
+	age = models.PositiveIntegerField()
+
+	class Meta:
+		abstract = True
+		ordering = ['name']
+
+class Student(CommonInfo):
+	home_group = models.CharField(max_length=5)
+
+	class Meta(CommonInfo.Meta):
+		db_table = 'student_info'
+
+# Meta & Multi-table inheritance
+
+class Place(models.Model):
+	name = models.CharField(max_length=50)
+	address = models.CharField(max_length=80)
+
+	class Meta:
+		ordering = ['name']
+
+class Restaurant(Place):
+	serves_hot_dogs = models.BooleanField(default=False)
+	serves_pizza = models.BooleanField(default=False)
+
+	class Meta:
+		ordering = ['serves_pizza', 'serves_hot_dogs']
+
+class Supplier(Place):
+	customers = models.ManyToManyField(Place, related_name='provider')
+
+# Proxy models
+
+class PersonBase(models.Model):
+	first_name = models.CharField(max_length=30)
+	last_name = models.CharField(max_length=30)
+
+class MyPerson(PersonBase):
+	class Meta:
+		proxy = True
+
+	def do_something(self):
+		pass
+
+class OrderedPerson(PersonBase):
+	class Meta:
+		ordering = ["last_name"]
+		proxy = True
+
+
+# Proxy model managers
+
+class NewManager(models.Manager): #isn't models.Model, this is a models.Manager - MANAGER
+	pass
+
+class OtherPerson(Person):
+	objects = NewManager()
+
+	class Meta:
+		proxy = True
+
+class ExtraManagers(models.Model):
+	secondary = NewManager()
+
+	class Meta:
+		abstract = True
+
+class OtherOnePerson(Person, ExtraManagers):
+	class Meta:
+		proxy = True
+
+# Multiple inheritance
+
+class Article(models.Model):
+	article_id = models.AutoField(primary_key=True)
+	headline = models.CharField(max_length=50)
+	body = models.TextField()
+
+class Book(models.Model):
+	book_id = models.AutoField(primary_key=True)
+	title = models.CharField(max_length=50)
+
+class BookReview(Book, Article):
+	pass
+
+
+
 	
