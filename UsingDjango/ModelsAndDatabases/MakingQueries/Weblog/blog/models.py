@@ -16,6 +16,11 @@ class Author(models.Model):
 	def __unicode__(self):
 		return self.name
 
+# Custom reverse manager
+
+class EntryManager(models.Manager):
+	pass
+
 class Entry(models.Model):
 	blog = models.ForeignKey(Blog)
 	headline = models.CharField(max_length=255)
@@ -27,5 +32,12 @@ class Entry(models.Model):
 	n_pingbacks = models.IntegerField()
 	rating = models.IntegerField()
 
+	objects = models.Manager()
+	entries = EntryManager()
+
 	def __unicode__(self):
 		return self.headline
+
+class EntryDetail(models.Model):
+	entry = models.OneToOneField(Entry)
+	details = models.TextField()
