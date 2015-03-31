@@ -21,3 +21,17 @@ urlpatterns = patterns('multipleprefixes.views',
 urlpatterns += patterns('weblog.views',
 	url(r'^tag/(?P<tag>\w+)/$', 'weblog.views.tag'),
 	)
+
+
+# Other URLConfs
+
+'''
+urlpatterns = patterns('',
+	url(r'^(?P<page_slug>\w+)-(?P<page_id>\w+)/', include(patterns('wiki.views',
+		url(r'^history/$', 'history'),
+		url(r'^edit/$', 'edit'),
+		url(r'^discuss/$', 'discuss'),
+		url(r'^permissions/$', 'permissions'),
+		))),
+	)
+'''
